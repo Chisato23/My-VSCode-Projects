@@ -5,25 +5,110 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Document</title>
+    <title>Encrypt Project</title>
 
-    <style></style>
+    <style>
+      .formBox {
+        font-size: 2rem;
+      }
+      #title,
+      #btn {
+        font-size: 1.5rem;
+      }
+      .highLight {
+        background-color: hsla(233, 100%, 50%, 0.58);
+      }
+      .highlightYellow {
+        background-color: hsla(65, 100%, 50%, 0.58);
+      }
+      .highlightRed {
+        background-color: hsla(14, 100%, 50%, 0.561);
+      }
+
+      .result {
+        font-size: 2rem;
+        position: relative;
+        box-sizing: border-box;
+        background-color: rgba(80, 214, 255, 0.803);
+        opacity: 0;
+        transform: translateX(-80rem);
+        animation: fadeIn 2000ms ease forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .scanEffect {
+        position: relative;
+        box-sizing: border-box;
+        background-color: rgba(80, 214, 255, 0.803);
+        opacity: 0;
+        transform: translateY(-30rem);
+        animation: fadeIn 5000ms ease forwards;
+      }
+      /* #result::before,
+      #result::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+      #result::before {
+        background: rgba(0, 0, 0, 0.622);
+
+        animation: typewriter 5s ease forwards;
+      }
+      @keyframes typewriter {
+        to {
+          left: 100%;
+        }
+      } */
+
+      p {
+        position: relative;
+      }
+      p::before,
+      p::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+      p::before {
+        background: rgb(0, 0, 0);
+        width: auto;
+      }
+
+      body {
+        display: grid;
+        max-width: 400px;
+        text-align: center;
+      }
+    </style>
   </head>
 
   <body>
+    <p>""</p>
     <form>
       <div class="formBox">
-        <label for="title">Encrypt Message</label>
+        <label for="title">Encrypt & Decrypt Message</label><br />
         <input type="text" id="title" placeholder="Message" />
       </div>
       <div class="formBox">
         <button id="btn">Click to Convert</button>
+        <button id="removebtn">Click to Remove</button>
       </div>
     </form>
 
-    <input id="cb" type="checkbox" />
-
-    <div id="result"></div>
+    <div class="result" id="result"></div>
 
     <script>
       //    let storeArr=[]
@@ -36,8 +121,6 @@
           title: document.getElementById("title").value,
           // year: document.getElementById('yr').value
         };
-
-        // rot13("SERR CVMMN!")
 
         let x = document.getElementById("title").value;
 
@@ -113,19 +196,64 @@
       document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("btn").addEventListener("click", getText);
       });
+      const removeText = function () {
+        localStorage.removeItem("SecretCode");
+      };
 
-      // localStorage.removeItem("SecretCode")
+      let element = document.getElementById("result");
+
+      // document
+      //   .getElementById("btn")
+      //   .addEventListener("click", element.classList.remove("result"));
+
+      document.getElementById("btn").addEventListener("click", ev => {
+        ev.preventDefault();
+        element.classList.remove("result");
+        setTimeout(() => {
+          element.classList.add("result");
+        }, 3);
+      });
+
+      document.getElementById("removebtn").addEventListener("click", ev => {
+        ev.preventDefault();
+        removeText;
+      });
+      // document
+      // .getElementById("removebtn")
+      // .addEventListener("click", element.classList.remove("result"));
     </script>
-
-    <svg
-      style="width: 200px"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-    >
-      <title>access-point</title>
-      <path
-        d="M4.93,4.93C3.12,6.74 2,9.24 2,12C2,14.76 3.12,17.26 4.93,19.07L6.34,17.66C4.89,16.22 4,14.22 4,12C4,9.79 4.89,7.78 6.34,6.34L4.93,4.93M19.07,4.93L17.66,6.34C19.11,7.78 20,9.79 20,12C20,14.22 19.11,16.22 17.66,17.66L19.07,19.07C20.88,17.26 22,14.76 22,12C22,9.24 20.88,6.74 19.07,4.93M7.76,7.76C6.67,8.85 6,10.35 6,12C6,13.65 6.67,15.15 7.76,16.24L9.17,14.83C8.45,14.11 8,13.11 8,12C8,10.89 8.45,9.89 9.17,9.17L7.76,7.76M16.24,7.76L14.83,9.17C15.55,9.89 16,10.89 16,12C16,13.11 15.55,14.11 14.83,14.83L16.24,16.24C17.33,15.15 18,13.65 18,12C18,10.35 17.33,8.85 16.24,7.76M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z"
-      />
-    </svg>
+    <div>
+      <svg
+        style="width: 80px"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <title>lock</title>
+        <path
+          d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"
+        />
+      </svg>
+      <svg
+        style="width: 80px"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <title>lock-open-variant</title>
+        <path
+          d="M18 1C15.24 1 13 3.24 13 6V8H4C2.9 8 2 8.89 2 10V20C2 21.11 2.9 22 4 22H16C17.11 22 18 21.11 18 20V10C18 8.9 17.11 8 16 8H15V6C15 4.34 16.34 3 18 3C19.66 3 21 4.34 21 6V8H23V6C23 3.24 20.76 1 18 1M10 13C11.1 13 12 13.89 12 15C12 16.11 11.11 17 10 17C8.9 17 8 16.11 8 15C8 13.9 8.9 13 10 13Z"
+        />
+      </svg>
+    </div>
+    <h2>
+      How does this work: <br />only
+      <span class="highlight">CAPITAL LETTERS</span> are converted!!
+    </h2>
+    <h3 class="scanEffect">
+      For example: <span class="highlightYellow">"HeLlO WoRlD"</span> will
+      return <span class="highlightRed">"UeYlB JoElQ"</span><br /><br />
+      To decrypt back to the original text, pass in:
+      <span class="highlightRed">"UeYlB JoElQ"</span>, to get back
+      <span class="highlightYellow">"HeLlO WoRlD"</span>
+    </h3>
   </body>
 </html>

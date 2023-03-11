@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing App</title>
+  </head>
+  <style>
+    .typing-grid {
+      display: grid;
+      justify-content: center;
+      align-content: center;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+    }
+
+    .typing-grid > button {
+      font-size: 5rem;
+      background-color: rgb(56, 82, 174);
+    }
+    body {
+      display: grid;
+      justify-content: center;
+    }
+
+    .result_Div {
+      font-size: 2rem;
+    }
+  </style>
+  <body>
+    <div class="typing-grid">
+      <button class="typing-grid-btn" id="btn1">!</button>
+      <button class="typing-grid-btn" id="btn2">!</button>
+      <button class="typing-grid-btn" id="btn3">!</button>
+      <!-- <button class="typing-grid-btn" id="btn4">3</button>
+      <button class="typing-grid-btn" id="btn5">3</button>
+      <button class="typing-grid-btn" id="btn6">3</button>
+      <button class="typing-grid-btn" id="btn7">3</button>
+      <button class="typing-grid-btn" id="btn8">3</button>
+      <button class="typing-grid-btn" id="btn9">3</button> -->
+    </div>
+
+    <div class="result_Div">
+      <div id="correctKey_Count_Div">correctKey_Count_Div</div>
+      <div id="wrongKey_Count_Div">wrongKey_Count_Div</div>
+      <div id="score_Div">score</div>
+    </div>
+
+    <div class="game-over" id="game-over"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", keyInput);
+
+      function keyInput() {
+        document.body.addEventListener("keydown", getKeyInput);
+      }
+
+      let correctKey_Count = 0;
+      let wrongKey_Count = 0;
+      let score = 0;
+
+      function getKeyInput(ev) {
+        let char = ev.key;
+        let allBtn = document.querySelectorAll(".typing-grid-btn");
+
+        allBtn.forEach(x => console.log(`allBtn${x.innerHTML}`));
+        console.log(char);
+        // console.log(document.querySelector(".typing-grid-btn").innerHTML);
+        // let result=document.getElementById("result").innerHTML;
+
+        for (let eachBtn of allBtn) {
+          if (eachBtn.innerHTML === char) {
+            score++;
+            console.log(score);
+            document.getElementById("score_Div").innerHTML = `SCORE: ${score}`;
+          }
+        }
+
+        //working code!
+        // if (document.querySelector(".typing-grid-btn").innerHTML === char) {
+        //   correctKey_Count++;
+        //   console.log(correctKey_Count);
+
+        let allBtnArr = [];
+        allBtn.forEach(x => allBtnArr.push(x.innerHTML));
+        console.log(allBtnArr);
+        if (allBtnArr.includes(char)) {
+          correctKey_Count++;
+          console.log(correctKey_Count);
+          document.getElementById(
+            "correctKey_Count_Div"
+          ).innerHTML = `correctKey_Count: ${correctKey_Count}`;
+        } else {
+          wrongKey_Count++;
+          console.log(wrongKey_Count);
+          document.getElementById(
+            "wrongKey_Count_Div"
+          ).innerHTML = `wrongKey_Count: ${wrongKey_Count}`;
+        }
+
+        let allFilled;
+        allBtn.forEach(x => {
+          if (x.innerHTML !== "!") {
+            allFilled = false;
+          }
+        });
+        console.log(allFilled);
+
+        if (allFilled != false) {
+          document.getElementById("game-over").innerHTML = "Game Over";
+        }
+      }
+
+      // add accuratcy stat
+    </script>
+  </body>
+</html>
