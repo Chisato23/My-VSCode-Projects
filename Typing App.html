@@ -89,7 +89,6 @@
 
         let allBtnArr = [];
         allBtn.forEach(x => allBtnArr.push(x.innerHTML));
-        console.log(allBtnArr);
         if (allBtnArr.includes(char)) {
           correctKey_Count++;
           console.log(correctKey_Count);
@@ -102,19 +101,6 @@
           document.getElementById(
             "wrongKey_Count_Div"
           ).innerHTML = `wrongKey_Count: ${wrongKey_Count}`;
-        }
-
-        let allFilled;
-        allBtn.forEach(x => {
-          if (x.innerHTML !== "!!") {
-            allFilled = true;
-          }
-        });
-        console.log("allFilled" + allFilled);
-
-        if ((allFilled = true)) {
-          document.getElementById("game-over").innerHTML = "Game Over";
-          //add new game btn
         }
 
         let abcArr = ["a", "b", "c"];
@@ -131,7 +117,28 @@
             console.log("btn1 working= " + abcArr[getRandomInt(3)]);
           }
         }
+        //gameOver_Check
+        function gameOver_Check() {
+          let allBtnArrUpdate = [];
+          allBtn.forEach(x => allBtnArrUpdate.push(x.innerHTML));
+          console.log(allBtnArrUpdate);
+
+          let allFilled;
+          if (allBtnArrUpdate.includes("!!")) {
+            allFilled = false;
+          } else {
+            allFilled = true;
+          }
+
+          console.log("allFilled" + allFilled);
+          if (allFilled === true) {
+            document.getElementById("game-over").innerHTML = "Game Over";
+          }
+          clearInterval(set_gameOver_Check);
+          //add new game btn
+        }
         setInterval(generateText, 2000);
+        let set_gameOver_Check = setInterval(gameOver_Check, 2000);
       }
 
       // add accuratcy stat
