@@ -58,6 +58,11 @@
       document.addEventListener("DOMContentLoaded", keyInput);
       document.addEventListener("DOMContentLoaded", getKeyInput);
 
+      //random number
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+      //keyboardInput
       function keyInput() {
         document.body.addEventListener("keydown", getKeyInput);
       }
@@ -69,9 +74,14 @@
       let global_gameOver_Check;
       let global_empty_btn_Check;
 
+      function allBtn_func() {
+        let allBtn = document.querySelectorAll(".typing-grid-btn");
+        return allBtn;
+      }
+
       function getKeyInput(ev) {
         let char = ev.key;
-        let allBtn = document.querySelectorAll(".typing-grid-btn");
+        let allBtn = allBtn_func();
 
         // allBtn.forEach(x => console.log(`allBtn${x.innerHTML}`));
         // console.log(char);
@@ -86,13 +96,8 @@
           }
         }
 
-        //working code!
-        // if (document.querySelector(".typing-grid-btn").innerHTML === char) {
-        //   correctKey_Count++;
-        //   console.log(correctKey_Count);
-
         let allBtnArr = [];
-        allBtn.forEach(x => allBtnArr.push(x.innerHTML));
+        allBtn.forEach(btn => allBtnArr.push(btn.innerHTML));
         if (allBtnArr.includes(char)) {
           correctKey_Count++;
           console.log(correctKey_Count);
@@ -108,10 +113,7 @@
         }
 
         let abcArr = ["a", "b", "c"];
-        //random number
-        function getRandomInt(max) {
-          return Math.floor(Math.random() * max);
-        }
+
         //empty_btn_Check
         // function empty_btn_Check(){
         // let empty_btn_Check_Arr =[]
@@ -163,7 +165,7 @@
         //startGame = setInterval(startBtn,2000);
       }
 
-      if (global_gameOver_Check()) {
+      if (global_gameOver_Check) {
         //clearInterval(startGame);
         clearInterval(set_gameOver_Check);
         //clearInterval(set_empty_btn_Check);
@@ -172,7 +174,7 @@
         console.log("gameOverTrue working");
       }
 
-      console.log(gameOverTrue);
+      // console.log(gameOverTrue);
 
       // add accuratcy stat
       // add typespeed meter, increasing level, rainbow
