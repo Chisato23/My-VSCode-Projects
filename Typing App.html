@@ -56,6 +56,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", keyInput);
+      document.addEventListener("DOMContentLoaded", getKeyInput);
 
       function keyInput() {
         document.body.addEventListener("keydown", getKeyInput);
@@ -64,6 +65,9 @@
       let correctKey_Count = 0;
       let wrongKey_Count = 0;
       let score = 0;
+      let global_generateText;
+      let global_gameOver_Check;
+      let global_empty_btn_Check;
 
       function getKeyInput(ev) {
         let char = ev.key;
@@ -108,8 +112,12 @@
         function getRandomInt(max) {
           return Math.floor(Math.random() * max);
         }
-
-        console.log("randomNum=" + getRandomInt(2));
+        //empty_btn_Check
+        // function empty_btn_Check(){
+        // let empty_btn_Check_Arr =[]
+        // allBtn.forEach(x =>{if(document.getElementById(x).innerHTML = "!!"){empty_btn_Check_Arr.push(x.innerHTML)} })
+        // console.log("empty btn:"+empty_btn_Check_Arr);
+        // }
         //generate text
         function generateText() {
           if ((document.getElementById("btn1").innerHTML = "!!")) {
@@ -133,13 +141,38 @@
           console.log("allFilled" + allFilled);
           if (allFilled === true) {
             document.getElementById("game-over").innerHTML = "Game Over";
+            return allFilled;
           }
-          clearInterval(set_gameOver_Check);
-          //add new game btn
         }
-        setInterval(generateText, 2000);
-        let set_gameOver_Check = setInterval(gameOver_Check, 2000);
+        global_generateText = generateText;
+        global_gameOver_Check = gameOver_Check;
+        // global_empty_btn_Check=empty_btn_Check
       }
+
+      //start btn, run setInterval
+      document.addEventListener("DOMContentLoaded", startBtn);
+
+      let set_generateText;
+      let set_gameOver_Check;
+      let startGame;
+      let set_empty_btn_Check;
+      function startBtn() {
+        set_generateText = setInterval(global_generateText, 2000);
+        set_gameOver_Check = setInterval(global_gameOver_Check, 2000);
+        // set_empty_btn_Check = setInterval(global_empty_btn_Check, 2000);
+        //startGame = setInterval(startBtn,2000);
+      }
+
+      if (global_gameOver_Check()) {
+        //clearInterval(startGame);
+        clearInterval(set_gameOver_Check);
+        //clearInterval(set_empty_btn_Check);
+        clearInterval(set_generateText);
+
+        console.log("gameOverTrue working");
+      }
+
+      console.log(gameOverTrue);
 
       // add accuratcy stat
       // add typespeed meter, increasing level, rainbow
