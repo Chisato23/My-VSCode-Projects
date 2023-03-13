@@ -111,70 +111,68 @@
             "wrongKey_Count_Div"
           ).innerHTML = `wrongKey_Count: ${wrongKey_Count}`;
         }
-
-        let abcArr = ["a", "b", "c"];
-
-        //empty_btn_Check
-        // function empty_btn_Check(){
-        // let empty_btn_Check_Arr =[]
-        // allBtn.forEach(x =>{if(document.getElementById(x).innerHTML = "!!"){empty_btn_Check_Arr.push(x.innerHTML)} })
-        // console.log("empty btn:"+empty_btn_Check_Arr);
-        // }
-        //generate text
-        function generateText() {
-          if ((document.getElementById("btn1").innerHTML = "!!")) {
-            document.getElementById("btn1").innerHTML = abcArr[getRandomInt(3)];
-            console.log("btn1 working= " + abcArr[getRandomInt(3)]);
-          }
-        }
-        //gameOver_Check
-        function gameOver_Check() {
-          let allBtnArrUpdate = [];
-          allBtn.forEach(x => allBtnArrUpdate.push(x.innerHTML));
-          console.log(allBtnArrUpdate);
-
-          let allFilled;
-          if (allBtnArrUpdate.includes("!!")) {
-            allFilled = false;
-          } else {
-            allFilled = true;
-          }
-
-          console.log("allFilled" + allFilled);
-          if (allFilled === true) {
-            document.getElementById("game-over").innerHTML = "Game Over";
-            return allFilled;
-          }
-        }
-        global_generateText = generateText;
-        global_gameOver_Check = gameOver_Check;
-        // global_empty_btn_Check=empty_btn_Check
       }
 
+      //empty_btn_Check
+      // function empty_btn_Check(){
+      // let empty_btn_Check_Arr =[]
+      // allBtn.forEach(x =>{if(document.getElementById(x).innerHTML = "!!"){empty_btn_Check_Arr.push(x.innerHTML)} })
+      // console.log("empty btn:"+empty_btn_Check_Arr);
+      // }
+
+      //generate text
+      function generateText() {
+        console.log("generateText Running");
+        let abcArr = ["a", "b", "c"];
+
+        if ((document.getElementById("btn1").innerHTML = "!!")) {
+          document.getElementById("btn1").innerHTML = abcArr[getRandomInt(3)];
+          console.log("btn1 working= " + abcArr[getRandomInt(3)]);
+        }
+      }
+
+      //gameOver_Check
+      let gg;
+      function gameOver_Check() {
+        let allBtn = allBtn_func();
+        let allBtnArrUpdate = [];
+        allBtn.forEach(x => allBtnArrUpdate.push(x.innerHTML));
+        console.log(allBtnArrUpdate);
+
+        let allFilled;
+        if (allBtnArrUpdate.includes("!!")) {
+          allFilled = false;
+        } else {
+          allFilled = true;
+        }
+
+        console.log("allFilled" + allFilled);
+        if (allFilled === true) {
+          document.getElementById("game-over").innerHTML = "Game Over";
+        }
+        gg = allFilled;
+        return gg;
+      }
       //start btn, run setInterval
       document.addEventListener("DOMContentLoaded", startBtn);
 
-      let set_generateText;
-      let set_gameOver_Check;
-      let startGame;
-      let set_empty_btn_Check;
       function startBtn() {
-        set_generateText = setInterval(global_generateText, 2000);
-        set_gameOver_Check = setInterval(global_gameOver_Check, 2000);
+        function stopInterval() {
+          console.log("gameOver_Check" + gg);
+          if (gg) {
+            clearInterval(set_gameOver_Check);
+            //clearInterval(set_empty_btn_Check);
+            clearInterval(set_generateText);
+            clearInterval(set_stopInterval);
+          }
+        }
+
+        let set_generateText = setInterval(generateText, 2000);
+        let set_gameOver_Check = setInterval(gameOver_Check, 2000);
+        let set_stopInterval = setInterval(stopInterval, 2000);
+
         // set_empty_btn_Check = setInterval(global_empty_btn_Check, 2000);
-        //startGame = setInterval(startBtn,2000);
       }
-
-      if (global_gameOver_Check) {
-        //clearInterval(startGame);
-        clearInterval(set_gameOver_Check);
-        //clearInterval(set_empty_btn_Check);
-        clearInterval(set_generateText);
-
-        console.log("gameOverTrue working");
-      }
-
-      // console.log(gameOverTrue);
 
       // add accuratcy stat
       // add typespeed meter, increasing level, rainbow
