@@ -36,7 +36,7 @@
   <body>
     <div class="typing-grid">
       <button class="typing-grid-btn" id="btn1">!!</button>
-      <button class="typing-grid-btn" id="btn2">b</button>
+      <button class="typing-grid-btn" id="btn2">!!</button>
       <button class="typing-grid-btn" id="btn3">!!</button>
       <!-- <button class="typing-grid-btn" id="btn4">3</button>
       <button class="typing-grid-btn" id="btn5">3</button>
@@ -126,18 +126,32 @@
           }
         });
         console.log(empty_btn_Check_Arr);
+        return empty_btn_Check_Arr;
       };
 
       //get random empty button
+      let getRandomEmptyButton = function () {
+        let empty_btn_Check_Arr = empty_btn_Check();
+        let randomEmptyButton;
+        if (empty_btn_Check_Arr.length > 0) {
+          randomEmptyButton =
+            empty_btn_Check_Arr[getRandomInt(empty_btn_Check_Arr.length)];
+        }
+        console.log("randombtn" + randomEmptyButton);
+        return randomEmptyButton;
+      };
 
       //generate text
       function generateText() {
         empty_btn_Check();
+        getRandomEmptyButton();
+        let randomEmptyButton = getRandomEmptyButton();
         console.log("generateText Running");
         let abcArr = ["a", "b", "c"];
 
-        if ((document.getElementById("btn1").innerHTML = "!!")) {
-          document.getElementById("btn1").innerHTML = abcArr[getRandomInt(3)];
+        if (randomEmptyButton !== undefined) {
+          document.getElementById(randomEmptyButton).innerHTML =
+            abcArr[getRandomInt(3)];
           console.log("btn1 working= " + abcArr[getRandomInt(3)]);
         }
       }
