@@ -53,6 +53,7 @@
     </div>
 
     <div class="game-over" id="game-over"></div>
+    <button id="newGame">Start A New Game</button>
 
     <script>
       document.addEventListener("DOMContentLoaded", keyInput);
@@ -67,12 +68,12 @@
         document.body.addEventListener("keydown", getKeyInput);
       }
 
-      let correctKey_Count = 0;
-      let wrongKey_Count = 0;
-      let score = 0;
-      let global_generateText;
-      let global_gameOver_Check;
-      let global_empty_btn_Check;
+      const global = {
+        gg: "gg",
+        score: 0,
+        correctKey_Count: 0,
+        wrongKey_Count: 0,
+      };
 
       function allBtn_func() {
         let allBtn = document.querySelectorAll(".typing-grid-btn");
@@ -90,26 +91,28 @@
 
         for (let eachBtn of allBtn) {
           if (eachBtn.innerHTML === char) {
-            score++;
-            console.log(score);
-            document.getElementById("score_Div").innerHTML = `SCORE: ${score}`;
+            global.score++;
+            console.log(global.score);
+            document.getElementById(
+              "score_Div"
+            ).innerHTML = `SCORE: ${global.score}`;
           }
         }
 
         let allBtnArr = [];
         allBtn.forEach(btn => allBtnArr.push(btn.innerHTML));
         if (allBtnArr.includes(char)) {
-          correctKey_Count++;
-          console.log(correctKey_Count);
+          global.correctKey_Count++;
+          console.log(global.correctKey_Count);
           document.getElementById(
             "correctKey_Count_Div"
-          ).innerHTML = `correctKey_Count: ${correctKey_Count}`;
+          ).innerHTML = `correctKey_Count: ${global.correctKey_Count}`;
         } else {
-          wrongKey_Count++;
-          console.log(wrongKey_Count);
+          global.wrongKey_Count++;
+          console.log(global.wrongKey_Count);
           document.getElementById(
             "wrongKey_Count_Div"
-          ).innerHTML = `wrongKey_Count: ${wrongKey_Count}`;
+          ).innerHTML = `wrongKey_Count: ${global.wrongKey_Count}`;
         }
       }
 
@@ -132,7 +135,7 @@
       }
 
       //gameOver_Check
-      let gg;
+
       function gameOver_Check() {
         let allBtn = allBtn_func();
         let allBtnArrUpdate = [];
@@ -150,16 +153,15 @@
         if (allFilled === true) {
           document.getElementById("game-over").innerHTML = "Game Over";
         }
-        gg = allFilled;
-        return gg;
+        global.gg = allFilled;
       }
       //start btn, run setInterval
-      document.addEventListener("DOMContentLoaded", startBtn);
+      document.getElementById("newGame").addEventListener("click", startBtn);
 
       function startBtn() {
         function stopInterval() {
-          console.log("gameOver_Check" + gg);
-          if (gg) {
+          console.log("gameOver_Check" + global.gg);
+          if (global.gg) {
             clearInterval(set_gameOver_Check);
             //clearInterval(set_empty_btn_Check);
             clearInterval(set_generateText);
