@@ -37,7 +37,7 @@
     <div class="typing-grid">
       <button class="typing-grid-btn" id="btn1">!!</button>
       <button class="typing-grid-btn" id="btn2">b</button>
-      <button class="typing-grid-btn" id="btn3">c</button>
+      <button class="typing-grid-btn" id="btn3">!!</button>
       <!-- <button class="typing-grid-btn" id="btn4">3</button>
       <button class="typing-grid-btn" id="btn5">3</button>
       <button class="typing-grid-btn" id="btn6">3</button>
@@ -103,13 +103,13 @@
         allBtn.forEach(btn => allBtnArr.push(btn.innerHTML));
         if (allBtnArr.includes(char)) {
           global.correctKey_Count++;
-          console.log(global.correctKey_Count);
+          // console.log(global.correctKey_Count);
           document.getElementById(
             "correctKey_Count_Div"
           ).innerHTML = `correctKey_Count: ${global.correctKey_Count}`;
         } else {
           global.wrongKey_Count++;
-          console.log(global.wrongKey_Count);
+          // console.log(global.wrongKey_Count);
           document.getElementById(
             "wrongKey_Count_Div"
           ).innerHTML = `wrongKey_Count: ${global.wrongKey_Count}`;
@@ -117,14 +117,22 @@
       }
 
       //empty_btn_Check
-      // function empty_btn_Check(){
-      // let empty_btn_Check_Arr =[]
-      // allBtn.forEach(x =>{if(document.getElementById(x).innerHTML = "!!"){empty_btn_Check_Arr.push(x.innerHTML)} })
-      // console.log("empty btn:"+empty_btn_Check_Arr);
-      // }
+      let empty_btn_Check = function () {
+        let allBtn = allBtn_func();
+        let empty_btn_Check_Arr = [];
+        allBtn.forEach(x => {
+          if (x.innerHTML === "!!") {
+            empty_btn_Check_Arr.push(x.id);
+          }
+        });
+        console.log(empty_btn_Check_Arr);
+      };
+
+      //get random empty button
 
       //generate text
       function generateText() {
+        empty_btn_Check();
         console.log("generateText Running");
         let abcArr = ["a", "b", "c"];
 
