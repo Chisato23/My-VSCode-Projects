@@ -38,17 +38,19 @@
       <button class="typing-grid-btn" id="btn1">!!</button>
       <button class="typing-grid-btn" id="btn2">!!</button>
       <button class="typing-grid-btn" id="btn3">!!</button>
-      <!-- <button class="typing-grid-btn" id="btn4">3</button>
-      <button class="typing-grid-btn" id="btn5">3</button>
-      <button class="typing-grid-btn" id="btn6">3</button>
-      <button class="typing-grid-btn" id="btn7">3</button>
-      <button class="typing-grid-btn" id="btn8">3</button>
-      <button class="typing-grid-btn" id="btn9">3</button> -->
+      <button class="typing-grid-btn" id="btn4">!!</button>
+      <button class="typing-grid-btn" id="btn5">!!</button>
+      <button class="typing-grid-btn" id="btn6">!!</button>
+      <button class="typing-grid-btn" id="btn7">!!</button>
+      <button class="typing-grid-btn" id="btn8">!!</button>
+      <button class="typing-grid-btn" id="btn9">!!</button>
     </div>
 
     <div class="result_Div">
       <div id="correctKey_Count_Div">correctKey_Count_Div</div>
       <div id="wrongKey_Count_Div">wrongKey_Count_Div</div>
+      <div id="accuracy_Div">Accuracy</div>
+
       <div id="score_Div">Score</div>
     </div>
 
@@ -57,7 +59,6 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", keyInput);
-      document.addEventListener("DOMContentLoaded", getKeyInput);
 
       //random number
       function getRandomInt(max) {
@@ -73,6 +74,13 @@
         score: 0,
         correctKey_Count: 0,
         wrongKey_Count: 0,
+        allBtnArr: [],
+        abcArr: ["a", "b", "c"],
+      };
+
+      const globalTimer = {
+        halfSeconds: 500,
+        twoSeconds: 2000,
       };
 
       function allBtn_func() {
@@ -87,7 +95,7 @@
         for (let eachBtn of allBtn) {
           if (eachBtn.innerHTML === char) {
             global.score++;
-            console.log(global.score);
+            // console.log(global.score);
             document.getElementById(
               "score_Div"
             ).innerHTML = `SCORE: ${global.score}`;
@@ -97,23 +105,32 @@
           }
         }
 
-        let allBtnArr = [];
-        allBtn.forEach(btn => allBtnArr.push(btn.innerHTML));
+        let allBtnArr = global.allBtnArr;
 
-        console.log(allBtnArr);
-
-        if (allBtnArr.includes(char)) {
-          global.correctKey_Count++;
-          // console.log(global.correctKey_Count);
+        if (global.gg !== true) {
+          accuratcyStat();
+        }
+        function accuratcyStat() {
+          if (allBtnArr.includes(char)) {
+            global.correctKey_Count++;
+            // console.log(global.correctKey_Count);
+            document.getElementById(
+              "correctKey_Count_Div"
+            ).innerHTML = `correctKey_Count: ${global.correctKey_Count}`;
+          } else {
+            global.wrongKey_Count++;
+            // console.log(global.wrongKey_Count);
+            document.getElementById(
+              "wrongKey_Count_Div"
+            ).innerHTML = `wrongKey_Count: ${global.wrongKey_Count}`;
+          }
           document.getElementById(
-            "correctKey_Count_Div"
-          ).innerHTML = `correctKey_Count: ${global.correctKey_Count}`;
-        } else {
-          global.wrongKey_Count++;
-          // console.log(global.wrongKey_Count);
-          document.getElementById(
-            "wrongKey_Count_Div"
-          ).innerHTML = `wrongKey_Count: ${global.wrongKey_Count}`;
+            "accuracy_Div"
+          ).innerHTML = `Accuracy: ${Math.floor(
+            (global.correctKey_Count /
+              (global.correctKey_Count + global.wrongKey_Count)) *
+              100
+          )}%`;
         }
       }
 
@@ -126,7 +143,7 @@
             empty_btn_Check_Arr.push(x.id);
           }
         });
-        console.log(empty_btn_Check_Arr);
+        // console.log(empty_btn_Check_Arr);
         return empty_btn_Check_Arr;
       };
 
@@ -138,7 +155,7 @@
           randomEmptyButton =
             empty_btn_Check_Arr[getRandomInt(empty_btn_Check_Arr.length)];
         }
-        console.log("randombtn" + randomEmptyButton);
+        // console.log("randombtn" + randomEmptyButton);
         return randomEmptyButton;
       };
 
@@ -148,12 +165,11 @@
         getRandomEmptyButton();
         let randomEmptyButton = getRandomEmptyButton();
         console.log("generateText Running");
-        let abcArr = ["a", "b", "c"];
+        let abcArr = global.abcArr;
 
         if (randomEmptyButton !== undefined) {
           document.getElementById(randomEmptyButton).innerHTML =
             abcArr[getRandomInt(3)];
-          console.log("btn1 working= " + abcArr[getRandomInt(3)]);
         }
       }
 
@@ -163,7 +179,7 @@
         let allBtn = allBtn_func();
         let allBtnArrUpdate = [];
         allBtn.forEach(x => allBtnArrUpdate.push(x.innerHTML));
-        console.log(allBtnArrUpdate);
+        // console.log(allBtnArrUpdate);
 
         let allFilled;
         if (allBtnArrUpdate.includes("!!")) {
@@ -177,6 +193,7 @@
           document.getElementById("game-over").innerHTML = "Game Over";
         }
         global.gg = allFilled; //all buttons filled= game over
+        global.allBtnArr = allBtnArrUpdate;
       }
 
       //empty all buttons
@@ -194,19 +211,28 @@
         function stopInterval() {
           console.log("gameOver_Check" + global.gg);
           if (global.gg) {
-            setTimeout(resetAllButtons, 500);
+            setTimeout(resetAllButtons, globalTimer.halfSeconds);
+            global.allBtnArr = [];
             clearInterval(set_gameOver_Check);
             clearInterval(set_generateText);
             clearInterval(set_stopInterval);
           }
         }
 
-        let set_generateText = setInterval(generateText, 2000);
-        let set_gameOver_Check = setInterval(gameOver_Check, 2000);
-        let set_stopInterval = setInterval(stopInterval, 2000);
+        let set_generateText = setInterval(
+          generateText,
+          globalTimer.twoSeconds
+        );
+        let set_gameOver_Check = setInterval(
+          gameOver_Check,
+          globalTimer.twoSeconds
+        );
+        let set_stopInterval = setInterval(
+          stopInterval,
+          globalTimer.twoSeconds
+        );
       }
 
-      // add accuratcy stat
       // add typespeed meter, increasing level, rainbow
     </script>
   </body>
