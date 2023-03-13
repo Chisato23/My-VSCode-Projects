@@ -84,11 +84,6 @@
         let char = ev.key;
         let allBtn = allBtn_func();
 
-        // allBtn.forEach(x => console.log(`allBtn${x.innerHTML}`));
-        // console.log(char);
-        // console.log(document.querySelector(".typing-grid-btn").innerHTML);
-        // let result=document.getElementById("result").innerHTML;
-
         for (let eachBtn of allBtn) {
           if (eachBtn.innerHTML === char) {
             global.score++;
@@ -97,10 +92,16 @@
               "score_Div"
             ).innerHTML = `SCORE: ${global.score}`;
           }
+          if (char === eachBtn.innerHTML) {
+            eachBtn.innerHTML = "!!";
+          }
         }
 
         let allBtnArr = [];
         allBtn.forEach(btn => allBtnArr.push(btn.innerHTML));
+
+        console.log(allBtnArr);
+
         if (allBtnArr.includes(char)) {
           global.correctKey_Count++;
           // console.log(global.correctKey_Count);
@@ -175,8 +176,17 @@
         if (allFilled === true) {
           document.getElementById("game-over").innerHTML = "Game Over";
         }
-        global.gg = allFilled;
+        global.gg = allFilled; //all buttons filled= game over
       }
+
+      //empty all buttons
+      function resetAllButtons() {
+        let allBtn = allBtn_func();
+        for (let eachBtn of allBtn) {
+          eachBtn.innerHTML = "!!";
+        }
+      }
+
       //start btn, run setInterval
       document.getElementById("newGame").addEventListener("click", startBtn);
 
@@ -184,8 +194,8 @@
         function stopInterval() {
           console.log("gameOver_Check" + global.gg);
           if (global.gg) {
+            setTimeout(resetAllButtons, 500);
             clearInterval(set_gameOver_Check);
-            //clearInterval(set_empty_btn_Check);
             clearInterval(set_generateText);
             clearInterval(set_stopInterval);
           }
@@ -194,8 +204,6 @@
         let set_generateText = setInterval(generateText, 2000);
         let set_gameOver_Check = setInterval(gameOver_Check, 2000);
         let set_stopInterval = setInterval(stopInterval, 2000);
-
-        // set_empty_btn_Check = setInterval(global_empty_btn_Check, 2000);
       }
 
       // add accuratcy stat
