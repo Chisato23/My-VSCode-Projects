@@ -36,6 +36,19 @@
       font-size: 1.5rem;
       background-color: rgba(209, 217, 59, 0.663);
     }
+    .menu_Difficulty_Level {
+      display: grid;
+      font-size: 2rem;
+    }
+    #Easy {
+      background-color: green;
+    }
+    #Expert {
+      background-color: rgb(228, 161, 44);
+    }
+    #Master {
+      background-color: rgba(204, 61, 9, 0.863);
+    }
   </style>
   <body>
     <div class="typing-grid">
@@ -61,6 +74,12 @@
 
     <div class="game-over" id="game-over"></div>
     <button id="newGame">Start A New Game</button>
+
+    <div class="menu_Difficulty_Level">
+      <button id="Easy">Easy Mode</button>
+      <button id="Expert">Expert Mode</button>
+      <button id="Master">Grand Master</button>
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", keyInput);
@@ -116,6 +135,7 @@
 
       const globalTimer = {
         halfSeconds: 500,
+        oneSecond: 1000,
         twoSeconds: 2000,
       };
 
@@ -258,10 +278,10 @@
       //Choose difficulty level
       const difficulty = {
         easyLevel: function easyLevel() {
-          startBtn(globalTimer.twoSeconds);
+          startBtn(globalTimer.twoSeconds, global.level.easyLevel);
         },
         expertLevel: function expertLevel() {
-          startBtn(globalTimer.halfSeconds);
+          startBtn(globalTimer.oneSecond, global.level.masterLevel);
         },
         masterLevel: function masterLevel() {
           startBtn(globalTimer.halfSeconds, global.level.masterLevel);
@@ -271,10 +291,22 @@
       // new game click to start, then choose difficulty
       document
         .getElementById("newGame")
+        .addEventListener("click", difficulty.expertLevel);
+      document
+        .getElementById("Easy")
+        .addEventListener("click", difficulty.easyLevel);
+      document
+        .getElementById("Expert")
+        .addEventListener("click", difficulty.expertLevel);
+      document
+        .getElementById("Master")
         .addEventListener("click", difficulty.masterLevel);
 
       //start btn, run setInterval
       function startBtn(speed, level) {
+        document.getElementById(
+          "score_Div"
+        ).innerHTML = `SCORE: ${global.score}`;
         function stopInterval() {
           console.log("gameOver_Check" + global.gg);
           if (global.gg) {
