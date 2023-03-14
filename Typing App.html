@@ -32,6 +32,10 @@
       font-size: 2rem;
       background-color: rgb(174, 56, 156);
     }
+    #newGame {
+      font-size: 1.5rem;
+      background-color: rgba(209, 217, 59, 0.663);
+    }
   </style>
   <body>
     <div class="typing-grid">
@@ -47,11 +51,12 @@
     </div>
 
     <div class="result_Div">
-      <div id="correctKey_Count_Div">correctKey_Count_Div</div>
-      <div id="wrongKey_Count_Div">wrongKey_Count_Div</div>
+      <!-- <div id="correctKey_Count_Div">correctKey_Count_Div</div>
+      <div id="wrongKey_Count_Div">wrongKey_Count_Div</div> -->
       <div id="accuracy_Div">Accuracy</div>
 
       <div id="score_Div">Score</div>
+      <div id="allTimeHighScore_Div">allTimeHighScore</div>
     </div>
 
     <div class="game-over" id="game-over"></div>
@@ -72,10 +77,41 @@
       const global = {
         gg: "gg",
         score: 0,
+        allTimeHighScore: 0,
         correctKey_Count: 0,
         wrongKey_Count: 0,
         allBtnArr: [],
-        abcArr: ["a", "b", "c"],
+        level: {
+          easyLevel: ["a", "b", "c"],
+          masterLevel: [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+          ],
+        },
       };
 
       const globalTimer = {
@@ -110,6 +146,7 @@
         if (global.gg !== true) {
           accuratcyStat();
         }
+        //accuratcyStat
         function accuratcyStat() {
           if (allBtnArr.includes(char)) {
             global.correctKey_Count++;
@@ -160,16 +197,15 @@
       };
 
       //generate text
-      function generateText() {
+      function generateText(difficultyLevel) {
         empty_btn_Check();
         getRandomEmptyButton();
         let randomEmptyButton = getRandomEmptyButton();
         console.log("generateText Running");
-        let abcArr = global.abcArr;
 
         if (randomEmptyButton !== undefined) {
           document.getElementById(randomEmptyButton).innerHTML =
-            abcArr[getRandomInt(3)];
+            difficultyLevel[getRandomInt(difficultyLevel.length)];
         }
       }
 
@@ -204,14 +240,46 @@
         }
       }
 
-      //start btn, run setInterval
-      document.getElementById("newGame").addEventListener("click", startBtn);
+      //allTimeHighScore
+      function allTimeHighScore() {
+        let allTimeHighScore =
+          localStorage.getItem("allTimeHighScore") || global.allTimeHighScore;
+        if (global.score > allTimeHighScore) {
+          localStorage.setItem("allTimeHighScore", global.score);
+        }
+        global.score = 0;
+        document.getElementById(
+          "allTimeHighScore_Div"
+        ).innerHTML = `allTimeHighScore: ${localStorage.getItem(
+          "allTimeHighScore"
+        )}`;
+      }
 
-      function startBtn() {
+      //Choose difficulty level
+      const difficulty = {
+        easyLevel: function easyLevel() {
+          startBtn(globalTimer.twoSeconds);
+        },
+        expertLevel: function expertLevel() {
+          startBtn(globalTimer.halfSeconds);
+        },
+        masterLevel: function masterLevel() {
+          startBtn(globalTimer.halfSeconds, global.level.masterLevel);
+        },
+      };
+
+      // new game click to start, then choose difficulty
+      document
+        .getElementById("newGame")
+        .addEventListener("click", difficulty.masterLevel);
+
+      //start btn, run setInterval
+      function startBtn(speed, level) {
         function stopInterval() {
           console.log("gameOver_Check" + global.gg);
           if (global.gg) {
             setTimeout(resetAllButtons, globalTimer.halfSeconds);
+            allTimeHighScore();
             global.allBtnArr = [];
             clearInterval(set_gameOver_Check);
             clearInterval(set_generateText);
@@ -219,18 +287,9 @@
           }
         }
 
-        let set_generateText = setInterval(
-          generateText,
-          globalTimer.twoSeconds
-        );
-        let set_gameOver_Check = setInterval(
-          gameOver_Check,
-          globalTimer.twoSeconds
-        );
-        let set_stopInterval = setInterval(
-          stopInterval,
-          globalTimer.twoSeconds
-        );
+        let set_generateText = setInterval(generateText, speed, level);
+        let set_gameOver_Check = setInterval(gameOver_Check, speed);
+        let set_stopInterval = setInterval(stopInterval, speed);
       }
 
       // add typespeed meter, increasing level, rainbow
