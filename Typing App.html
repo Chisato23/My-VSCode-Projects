@@ -7,6 +7,9 @@
     <title>Typing App</title>
   </head>
   <style>
+    :root {
+      --grey: rgba(171, 173, 195, 0.77);
+    }
     .typing-grid {
       display: grid;
       justify-content: center;
@@ -17,7 +20,11 @@
 
     .typing-grid > button {
       font-size: 5rem;
-      background-color: rgb(56, 82, 174);
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.71),
+        rgba(0, 41, 128, 0.589)
+      );
     }
     body {
       display: grid;
@@ -25,29 +32,75 @@
     }
 
     .result_Div {
-      font-size: 2rem;
+      font-size: 1.2rem;
+      padding-left: 5px;
+    }
+    .result_Div {
+      border: 1px;
+      border: solid;
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.71),
+        rgba(128, 79, 0, 0.484),
+        rgba(0, 0, 0, 0.71)
+      );
     }
 
     .game-over {
-      font-size: 2rem;
-      background-color: rgb(174, 56, 156);
+      text-align: center;
+      font-size: 1.5rem;
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.71),
+        rgba(45, 194, 204, 0.801),
+        rgba(0, 0, 0, 0.71)
+      );
+    }
+
+    #newGame,
+    .menu_Difficulty_Level button {
+      border-radius: 1vw;
+    }
+    .menu_Difficulty_Level button {
+      display: none;
     }
     #newGame {
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.71),
+        var(--grey),
+        rgba(0, 0, 0, 0.71)
+      );
+    }
+
+    #newGame:hover,
+    #newGame:focus-visible {
       font-size: 1.5rem;
-      background-color: rgba(209, 217, 59, 0.663);
+      background-color: rgba(3, 25, 34, 0.988);
+      color: rgb(226, 43, 171);
     }
     .menu_Difficulty_Level {
       display: grid;
-      font-size: 2rem;
     }
+    .game-over:hover {
+      background-color: rgba(209, 217, 59, 0.663);
+    }
+
     #Easy {
-      background-color: green;
+      background: hsl(120, 100%, 25%);
     }
     #Expert {
-      background-color: rgb(228, 161, 44);
+      background: rgb(228, 161, 44);
     }
     #Master {
-      background-color: rgba(204, 61, 9, 0.863);
+      background: rgba(204, 61, 9, 0.863);
+    }
+    #Easy:hover,
+    #Expert:hover,
+    #Master:hover {
+      background: rgba(3, 25, 34, 0.988) !important;
+      color: rgb(226, 43, 171);
+      font-size: 1.5rem;
     }
   </style>
   <body>
@@ -289,9 +342,9 @@
       };
 
       // new game click to start, then choose difficulty
-      document
-        .getElementById("newGame")
-        .addEventListener("click", difficulty.expertLevel);
+      // document
+      //   .getElementById("newGame")
+      //   .addEventListener("click", difficulty.expertLevel);
       document
         .getElementById("Easy")
         .addEventListener("click", difficulty.easyLevel);
@@ -301,6 +354,40 @@
       document
         .getElementById("Master")
         .addEventListener("click", difficulty.masterLevel);
+
+      //CSS
+      document.getElementById("newGame").addEventListener("click", () => {
+        document.getElementById("newGame").style.display = "none";
+      });
+
+      document.getElementById("newGame").addEventListener("click", () => {
+        document.getElementById("Easy").style.display = "block";
+      });
+
+      document.getElementById("newGame").addEventListener("click", () => {
+        document.getElementById("Expert").style.display = "block";
+      });
+
+      document.getElementById("newGame").addEventListener("click", () => {
+        document.getElementById("Master").style.display = "block";
+      });
+
+      //hide difficulty btns after choosing levels
+      function hideBtns(clickbtn, hidebtn) {
+        document.getElementById(clickbtn).addEventListener("click", () => {
+          document.getElementById(hidebtn).style.display = "none";
+        });
+      }
+
+      hideBtns("Easy", "Easy");
+      hideBtns("Easy", "Expert");
+      hideBtns("Easy", "Master");
+      hideBtns("Expert", "Easy");
+      hideBtns("Expert", "Expert");
+      hideBtns("Expert", "Master");
+      hideBtns("Master", "Easy");
+      hideBtns("Master", "Expert");
+      hideBtns("Master", "Master");
 
       //start btn, run setInterval
       function startBtn(speed, level) {
@@ -316,6 +403,8 @@
             clearInterval(set_gameOver_Check);
             clearInterval(set_generateText);
             clearInterval(set_stopInterval);
+
+            document.getElementById("newGame").style.display = "block";
           }
         }
 
@@ -323,8 +412,6 @@
         let set_gameOver_Check = setInterval(gameOver_Check, speed);
         let set_stopInterval = setInterval(stopInterval, speed);
       }
-
-      // add typespeed meter, increasing level, rainbow
     </script>
   </body>
 </html>
