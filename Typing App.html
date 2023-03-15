@@ -148,10 +148,12 @@
 
       const global = {
         gg: "gg",
+        gameStarted: false,
         score: 0,
         allTimeHighScore: 0,
         correctKey_Count: 0,
         wrongKey_Count: 0,
+        accuracyStat: 0,
         allBtnArr: [],
         level: {
           easyLevel: ["a", "b", "c"],
@@ -216,31 +218,27 @@
 
         let allBtnArr = global.allBtnArr;
 
-        if (global.gg !== true) {
+        if (global.gameStarted === true) {
           accuratcyStat();
         }
+
         //accuratcyStat
         function accuratcyStat() {
           if (allBtnArr.includes(char)) {
             global.correctKey_Count++;
-            // console.log(global.correctKey_Count);
-            document.getElementById(
-              "correctKey_Count_Div"
-            ).innerHTML = `correctKey_Count: ${global.correctKey_Count}`;
           } else {
             global.wrongKey_Count++;
-            // console.log(global.wrongKey_Count);
-            document.getElementById(
-              "wrongKey_Count_Div"
-            ).innerHTML = `wrongKey_Count: ${global.wrongKey_Count}`;
           }
-          document.getElementById(
-            "accuracy_Div"
-          ).innerHTML = `Accuracy: ${Math.floor(
+
+          global.accuracyStat = Math.floor(
             (global.correctKey_Count /
               (global.correctKey_Count + global.wrongKey_Count)) *
               100
-          )}%`;
+          );
+          document.getElementById(
+            "accuracy_Div"
+          ).innerHTML = `Accuracy: ${global.accuracyStat}%`;
+          console.log("accuratcyStat running");
         }
       }
 
@@ -300,6 +298,7 @@
         console.log("allFilled" + allFilled);
         if (allFilled === true) {
           document.getElementById("game-over").innerHTML = "Game Over";
+          document.getElementById("game-over").style.display = "block";
         }
         global.gg = allFilled; //all buttons filled= game over
         global.allBtnArr = allBtnArrUpdate;
@@ -342,9 +341,7 @@
       };
 
       // new game click to start, then choose difficulty
-      // document
-      //   .getElementById("newGame")
-      //   .addEventListener("click", difficulty.expertLevel);
+
       document
         .getElementById("Easy")
         .addEventListener("click", difficulty.easyLevel);
@@ -358,6 +355,9 @@
       //CSS
       document.getElementById("newGame").addEventListener("click", () => {
         document.getElementById("newGame").style.display = "none";
+      });
+      document.getElementById("newGame").addEventListener("click", () => {
+        document.getElementById("game-over").style.display = "none";
       });
 
       document.getElementById("newGame").addEventListener("click", () => {
@@ -391,6 +391,10 @@
 
       //start btn, run setInterval
       function startBtn(speed, level) {
+        global.gameStarted = true;
+        global.accuracyStat = 0;
+        document.getElementById("accuracy_Div").innerHTML = "Accuracy";
+
         document.getElementById(
           "score_Div"
         ).innerHTML = `SCORE: ${global.score}`;
@@ -405,6 +409,7 @@
             clearInterval(set_stopInterval);
 
             document.getElementById("newGame").style.display = "block";
+            global.gameStarted = false;
           }
         }
 
