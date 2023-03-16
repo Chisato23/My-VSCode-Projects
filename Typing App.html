@@ -29,6 +29,7 @@
     body {
       display: grid;
       justify-content: center;
+      font-family: "Open Sans", sans-serif;
     }
 
     .result_Div {
@@ -36,6 +37,7 @@
       padding-left: 5px;
     }
     .result_Div {
+      padding-left: 10px;
       border: 1px;
       border: solid;
       background-image: linear-gradient(
@@ -71,6 +73,7 @@
         var(--grey),
         rgba(0, 0, 0, 0.71)
       );
+      font-size: 1.5rem;
     }
 
     #newGame:hover,
@@ -78,6 +81,19 @@
       font-size: 1.5rem;
       background-color: rgba(3, 25, 34, 0.988);
       color: rgb(226, 43, 171);
+    }
+
+    #newGame:hover + .newGameDropDown,
+    #newGame:focus-visible + .newGameDropDown {
+      opacity: 1;
+    }
+    .newGameDropDown {
+      display: grid;
+      border-radius: 0.25rem;
+      padding-left: 0.25rem;
+      background: white;
+      box-shadow: 0 5px 5px 0 rgb(0, 0, 0, 0.5);
+      display: none;
     }
     .menu_Difficulty_Level {
       display: grid;
@@ -88,17 +104,20 @@
 
     #Easy {
       background: hsl(120, 100%, 25%);
+      font-size: 1.2rem;
     }
     #Expert {
       background: rgb(228, 161, 44);
+      font-size: 1.2rem;
     }
     #Master {
       background: rgba(204, 61, 9, 0.863);
+      font-size: 1.2rem;
     }
     #Easy:hover,
     #Expert:hover,
     #Master:hover {
-      background: rgba(3, 25, 34, 0.988) !important;
+      background: rgba(3, 25, 34, 0.988);
       color: rgb(226, 43, 171);
       font-size: 1.5rem;
     }
@@ -122,11 +141,21 @@
       <div id="accuracy_Div">Accuracy</div>
 
       <div id="score_Div">Score</div>
-      <div id="allTimeHighScore_Div">allTimeHighScore</div>
+      <div id="allTimeHighScore_Div">All Time-HighScore</div>
     </div>
 
     <div class="game-over" id="game-over"></div>
+
     <button id="newGame">Start A New Game</button>
+    <div class="newGameDropDown" id="newGameDropDown">
+      <h3>How To Play:</h3>
+      <p>
+        Letters appear on a set interval.<br />
+        Type to make the letter dissapear.<br />
+        Each matching letter will net you 1 point.<br />
+        The game is over when all 9 slots are filled.
+      </p>
+    </div>
 
     <div class="menu_Difficulty_Level">
       <button id="Easy">Easy Mode</button>
@@ -322,7 +351,7 @@
         global.score = 0;
         document.getElementById(
           "allTimeHighScore_Div"
-        ).innerHTML = `allTimeHighScore: ${localStorage.getItem(
+        ).innerHTML = `All Time-HighScore: ${localStorage.getItem(
           "allTimeHighScore"
         )}`;
       }
@@ -353,6 +382,13 @@
         .addEventListener("click", difficulty.masterLevel);
 
       //CSS
+      document.getElementById("newGame").addEventListener("mouseenter", () => {
+        document.getElementById("newGameDropDown").style.display = "block";
+      });
+      document.getElementById("newGame").addEventListener("mouseleave", () => {
+        document.getElementById("newGameDropDown").style.display = "none";
+      });
+
       document.getElementById("newGame").addEventListener("click", () => {
         document.getElementById("newGame").style.display = "none";
       });
