@@ -16,6 +16,8 @@
       align-content: center;
       grid-template-columns: repeat(3, 100px);
       grid-template-rows: repeat(3, 100px);
+      color: rgba(0, 255, 255, 0.527);
+      border: solid;
     }
 
     .typing-grid > button {
@@ -25,27 +27,30 @@
         rgba(0, 0, 0, 0.71),
         rgba(0, 41, 128, 0.589)
       );
+      border-color: rgba(0, 255, 255, 0.527);
     }
     body {
       display: grid;
       justify-content: center;
       font-family: "Open Sans", sans-serif;
+      background: rgb(38, 47, 71);
     }
 
     .result_Div {
       font-size: 1.2rem;
       padding-left: 5px;
-    }
-    .result_Div {
       padding-left: 10px;
       border: 1px;
       border: solid;
+      border-top-style: none;
       background-image: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.71),
-        rgba(128, 79, 0, 0.484),
-        rgba(0, 0, 0, 0.71)
+        rgba(0, 0, 0, 0.222),
+        var(--grey),
+        rgba(0, 0, 0, 0.152)
       );
+      color: rgb(211, 211, 211);
+      border-color: rgba(0, 255, 255, 0.527);
     }
 
     .game-over {
@@ -74,18 +79,19 @@
         rgba(0, 0, 0, 0.71)
       );
       font-size: 1.5rem;
+      border-color: rgba(0, 255, 255, 0.527);
     }
 
     #newGame:hover,
     #newGame:focus-visible {
       font-size: 1.5rem;
       background-color: rgba(3, 25, 34, 0.988);
-      color: rgb(226, 43, 171);
+      color: rgba(226, 43, 171, 0.749);
     }
 
     #newGame:hover + .newGameDropDown,
     #newGame:focus-visible + .newGameDropDown {
-      opacity: 1;
+      background: var(--grey);
     }
     .newGameDropDown {
       display: grid;
