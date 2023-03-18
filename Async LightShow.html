@@ -11,9 +11,10 @@
       font-size: 75px;
       justify-content: center;
       align-content: center;
-      min-height: 100vh;
+      min-height: 200vh;
       background-color: #000;
-      perspective: 10em;
+      perspective: 5em;
+      max-width: 150vh;
     }
 
     .floor {
@@ -45,14 +46,12 @@
       fill: rgb(150, 185, 185);
     }
     .LightContainer {
-  width: 54%;
-  height: 8%;
+  width: 5em;
+  height: 1em;
   perspective: 400px;
   transform-origin: 0 0;
   position: absolute;
-  top: 5%;
-  left: 10%;
-  transform: rotateZ(80deg);
+  top: 0.8em;  
   opacity: 1;
   
 }
@@ -65,6 +64,8 @@
   border-radius: 20% / 100% 0 0 100%;
   filter: blur(6px);
 }
+#LightContainerLeft{left:0.3em;transform: rotateZ(-80deg);}
+#LightContainerRight{left:0%;transform: rotateZ(260deg);}
 
 .credit{color: white; font-size: small; }
   </style>
