@@ -7,6 +7,11 @@
     <title>Document</title>
   </head>
   <style>
+    :root{--top:white;
+      --bot:white;
+      --lightColor: linear-gradient(to right, var(--bot), var(--top) 70%, transparent)
+
+    }
     body {
       font-size: 75px;
       justify-content: center;
@@ -60,7 +65,7 @@
   height: 100%;
   transform: rotateY(-45deg);
   transform-origin: 0 50%;
-  background-image: linear-gradient(to right, rgb(253, 5, 5), rgba(240, 220, 8, 0.5) 70%, transparent);
+  background-image: var(--lightColor);
   border-radius: 20% / 100% 0 0 100%;
   filter: blur(6px);
 }
@@ -109,13 +114,94 @@
    
 
     <div class="credit" id="credit">Credit: Light Beam CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
+    <input type=color>
 
     <script>
+      
+     
+      const changeColorTo={
+        white: "--top",
+        green: "--bot",
+        randomTop:"--top",
+        randomBot:"--bot",
+
+      }
+      const rainbowColor={
+        red: "#e4002b",
+        orange:"#ff6900",
+        yellow:"#f6be00",
+        green:"#97d700",
+        indigo:"#00ab84",
+        blue:"#5461c8",
+        purple:"#c724b1",
+      }
+
+            const rainbowArr= Object.values(rainbowColor);
+            console.log(rainbowArr[3]);
+      
+      // document.documentElement.style.setProperty(changeColorTo.white,"white")
+
       function delay(sec) {
         return new Promise((resolve, reject) => {
           setTimeout(resolve, sec);
         });
+      }//random number
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
       }
+
+      
+
+      
+      // async function changeColor(){
+      //   try{await delay(3000);
+      //     document.documentElement.style.setProperty(changeColorTo.white,rainbowArr[1]);
+      //     await delay(1000);
+      //     document.documentElement.style.setProperty(changeColorTo.green,rainbowArr[2]);
+      //   }catch(e){console.log("error");}
+      // }
+      // changeColor()
+
+      //changeRainbowColor
+      async function changeRainbowColor(){
+        try{await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[0]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[1]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[2]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[3]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[4]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[5]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[6]);
+        }catch(e){console.log("error");}
+      }
+      changeRainbowColor()
+
+      //changeRandomRainbowColor
+      async function changeRandomRainbowColor(){
+        try{await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[0]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[1]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[2]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[3]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[4]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[5]);
+          await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[6]);
+        }catch(e){console.log("error");}
+      }
+      // changeRandomRainbowColor()
+
 
       // function prom(num) {
       //   return new Promise((resolve, reject) => {
