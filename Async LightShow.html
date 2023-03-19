@@ -164,43 +164,25 @@
 
       //changeRainbowColor
       async function changeRainbowColor(){
-        try{await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[0]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[1]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[2]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[3]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[4]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[5]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[6]);
+        try{for(let i=0;i<rainbowArr.length;i++){await delay(1000);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[i]);}
+         
         }catch(e){console.log("error");}
       }
-      changeRainbowColor()
+      // changeRainbowColor()
 
       //changeRandomRainbowColor
       async function changeRandomRainbowColor(){
-        try{await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[0]);
+        try{for(let i=0, randomRainbow=rainbowArr, noRepeatLength=rainbowArr.length;i<noRepeatLength;i++){let noRepeat=Math.floor(Math.random() * randomRainbow.length);
+          
+          console.log(noRepeat);
           await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[1]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[2]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[3]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[4]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[5]);
-          await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[6]);
+          document.documentElement.style.setProperty(changeColorTo.randomTop,randomRainbow[noRepeat]);
+          randomRainbow.splice(noRepeat,1);
+        }
         }catch(e){console.log("error");}
       }
-      // changeRandomRainbowColor()
+      changeRandomRainbowColor()
 
 
       // function prom(num) {
