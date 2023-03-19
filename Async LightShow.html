@@ -123,16 +123,17 @@ d<!DOCTYPE html>
 
    
 
-    <div class="credit" id="credit">Credit: Light Beam CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
+    <div class="credit" id="credit">Credit: Light Beam Model CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
     <input type=color>
+    <input type="range">    
     <nav class="menu">
       <div class="Rainbow_Btn">
-      <button class="Rainbow_Top">Rainbow Top</button>
-      <button class="Rainbow_Bot">Rainbow Bot</button>
+      <button class="Rainbow_Top" id="Rainbow_Top">Rainbow Top</button>
+      <button class="Rainbow_Bot" id="Rainbow_Bot">Rainbow Bot</button>
     </div>
     <div class="Random_Rainbow_Btn">
-      <button class="Random_Rainbow_Top">Random Rainbow Top</button>
-      <button class="Random_Rainbow_Bot">Random Rainbow Bot</button>
+      <button class="Random_Rainbow_Top" id="Random_Rainbow_Top">Random Rainbow Top</button>
+      <button class="Random_Rainbow_Bot" id="Random_Rainbow_Bot">Random Rainbow Bot</button>
     </div>
 
 
@@ -185,9 +186,9 @@ d<!DOCTYPE html>
       // changeColor()
 
       //changeRainbowColor
-      async function changeRainbowColor(){
+      async function changeRainbowColor(top_bot){
         try{for(let i=0;i<rainbowArr.length;i++){await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,rainbowArr[i]);}
+          document.documentElement.style.setProperty(top_bot,rainbowArr[i]);}
          
         }catch(e){console.log("error");}
       }
@@ -204,14 +205,30 @@ d<!DOCTYPE html>
         }
         }catch(e){console.log("error");}
       }
-      // changeRandomRainbowColor(changeColorTo.bot) 
      
 
-      
-      changeRandomRainbowColor(changeColorTo.top) 
-      changeRandomRainbowColor(changeColorTo.bot)
-      
+      //
+      let globalFunction={
+        TopBtn_funct: ()=>{changeRainbowColor(changeColorTo.top)},
+        BotBtn_funct: ()=>{changeRainbowColor(changeColorTo.bot)},
 
+      randomTopBtn_funct: ()=>{changeRandomRainbowColor(changeColorTo.top)},
+      randomBotBtn_funct: ()=>{changeRandomRainbowColor(changeColorTo.bot)},
+
+      }
+
+
+      document.getElementById("Rainbow_Top")
+        .addEventListener("click", globalFunction.TopBtn_funct); 
+        document.getElementById("Rainbow_Bot")
+        .addEventListener("click", globalFunction.BotBtn_funct); 
+
+      document.getElementById("Random_Rainbow_Top")
+        .addEventListener("click", globalFunction.randomTopBtn_funct); 
+        document.getElementById("Random_Rainbow_Bot")
+        .addEventListener("click", globalFunction.randomBotBtn_funct); 
+
+        
 
 
 
