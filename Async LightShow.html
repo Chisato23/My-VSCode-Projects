@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+d<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -36,6 +36,14 @@
       bottom: -6em;
       transform: translateX(1.5em)
     }
+
+    .menu{transform:translateX(6.25em)}
+.Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
+      align-content: center;}
+.Random_Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
+      align-content: center;}
+
+
     #leftLight {
       transform:  rotate(-60deg);
     }
@@ -77,9 +85,11 @@
   <body>
     <div class="floor"></div>
     
+    
     </div>
     <div class="card">
       <div class="gridLeft">
+        
         <div class="LightContainer" id="LightContainerLeft">
           <div class="Light" id="Light_Left"></div>
         </div>
@@ -115,6 +125,19 @@
 
     <div class="credit" id="credit">Credit: Light Beam CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
     <input type=color>
+    <nav class="menu">
+      <div class="Rainbow_Btn">
+      <button class="Rainbow_Top">Rainbow Top</button>
+      <button class="Rainbow_Bot">Rainbow Bot</button>
+    </div>
+    <div class="Random_Rainbow_Btn">
+      <button class="Random_Rainbow_Top">Random Rainbow Top</button>
+      <button class="Random_Rainbow_Bot">Random Rainbow Bot</button>
+    </div>
+
+
+
+    </nav>
 
     <script>
       
@@ -122,8 +145,8 @@
       const changeColorTo={
         white: "--top",
         green: "--bot",
-        randomTop:"--top",
-        randomBot:"--bot",
+        top:"--top",
+        bot:"--bot",
 
       }
       const rainbowColor={
@@ -137,9 +160,8 @@
       }
 
             const rainbowArr= Object.values(rainbowColor);
-            console.log(rainbowArr[3]);
+            
       
-      // document.documentElement.style.setProperty(changeColorTo.white,"white")
 
       function delay(sec) {
         return new Promise((resolve, reject) => {
@@ -172,17 +194,25 @@
       // changeRainbowColor()
 
       //changeRandomRainbowColor
-      async function changeRandomRainbowColor(){
-        try{for(let i=0, randomRainbow=rainbowArr, noRepeatLength=rainbowArr.length;i<noRepeatLength;i++){let noRepeat=Math.floor(Math.random() * randomRainbow.length);
+      async function changeRandomRainbowColor(top_bot){
+        try{for(let i=0, randomRainbow=rainbowArr.map(x=>x), noRepeatLength=rainbowArr.length;i<noRepeatLength;i++){let noRepeat=Math.floor(Math.random() * randomRainbow.length);
           
-          console.log(noRepeat);
+          // console.log(rainbowArr.length);
           await delay(1000);
-          document.documentElement.style.setProperty(changeColorTo.randomTop,randomRainbow[noRepeat]);
-          randomRainbow.splice(noRepeat,1);
+          await document.documentElement.style.setProperty(top_bot,randomRainbow[noRepeat]);
+          await randomRainbow.splice(noRepeat,1);
         }
         }catch(e){console.log("error");}
       }
-      changeRandomRainbowColor()
+      // changeRandomRainbowColor(changeColorTo.bot) 
+     
+
+      
+      changeRandomRainbowColor(changeColorTo.top) 
+      changeRandomRainbowColor(changeColorTo.bot)
+      
+
+
 
 
       // function prom(num) {
