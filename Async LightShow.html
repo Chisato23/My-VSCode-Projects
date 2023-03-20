@@ -9,7 +9,8 @@ d<!DOCTYPE html>
   <style>
     :root{--top:white;
       --bot:white;
-      --lightColor: linear-gradient(to right, var(--bot), var(--top) 70%, transparent)
+      --lightColor: linear-gradient(to right, var(--bot), var(--top) 70%, transparent);
+      --turn_speed:3000ms
 
     }
     body {
@@ -33,11 +34,12 @@ d<!DOCTYPE html>
     .card {
       display: flex;
       position: relative;
-      bottom: -6em;
+      bottom: -7em;
       transform: translateX(1.5em)
     }
 
     .menu{transform:translateX(6.25em)}
+    .turn_speed_control_Box{display: flex;background: white;font-size: 20px; max-width: fit-content; flex-flow: column;transform:translateX(5.5em)}
 .Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
       align-content: center;}
 .Random_Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
@@ -46,12 +48,53 @@ d<!DOCTYPE html>
 
     #leftLight {
       transform:  rotate(-60deg);
+      animation: turnRight var(--turn_speed) ease-in infinite;
     }
+#LightContainerLeft{ 
+       animation: turnRight_Light var(--turn_speed) ease-in infinite;
+}
+#LightContainerLeft{top: 0.4em; left:0.2em;transform: rotateZ(-80deg);}
+@keyframes turnRight {
+        50% {
+         transform: rotate(-10deg);
+
+        }
+      }
+
+      @keyframes turnRight_Light {
+        50% {transform: rotateZ(-40deg);
+         
+
+        }
+      }
+
     #rightLight {
       transform: rotate(240deg);
-    }
+      animation: turnLeft var(--turn_speed) ease-in infinite;
 
-    .gridLeft{display: grid;position: relative;}
+    }
+#LightContainerRight{left:0.1em; top: 0.9em; transform: rotateZ(260deg);
+  animation: turnLeft_Light var(--turn_speed) ease-in infinite;
+}
+@keyframes turnLeft {
+  50% {
+          transform: rotate(190deg);
+          
+
+        }
+      }
+
+      @keyframes turnLeft_Light {
+        50% {transform: rotateZ(220deg);
+         
+
+        }
+      }
+
+
+   
+
+    .gridLeft{display: grid;position: relative; }
     .gridRight{display: grid;position: relative; transform:translateX(12.5em) }
 
     
@@ -64,7 +107,7 @@ d<!DOCTYPE html>
   perspective: 400px;
   transform-origin: 0 0;
   position: absolute;
-  top: 0.8em;  
+   
   opacity: 1;
   
 }
@@ -77,8 +120,7 @@ d<!DOCTYPE html>
   border-radius: 20% / 100% 0 0 100%;
   filter: blur(6px);
 }
-#LightContainerLeft{left:0.3em;transform: rotateZ(-80deg);}
-#LightContainerRight{left:0%;transform: rotateZ(260deg);}
+
 
 .credit{color: white; font-size: small; }
   </style>
@@ -124,8 +166,8 @@ d<!DOCTYPE html>
    
 
     <div class="credit" id="credit">Credit: Light Beam Model CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
-    <input type=color>
-    <input type="range">    
+    
+
     <nav class="menu">
       <div class="Rainbow_Btn">
       <button class="Rainbow_Top" id="Rainbow_Top">Rainbow Top</button>
@@ -135,7 +177,14 @@ d<!DOCTYPE html>
       <button class="Random_Rainbow_Top" id="Random_Rainbow_Top">Random Rainbow Top</button>
       <button class="Random_Rainbow_Bot" id="Random_Rainbow_Bot">Random Rainbow Bot</button>
     </div>
+    <input type=color>
 
+  <div class="turn_speed_control_Box">
+    Select Turn Speed: 
+    <div>Slow</div>    <div>Normal</div>
+    <div>Fast</div>
+        <input type="range" min="0" max="2" value="0" id="turn_speed_control"> 
+  </div>
 
 
     </nav>
@@ -144,8 +193,7 @@ d<!DOCTYPE html>
       
      
       const changeColorTo={
-        white: "--top",
-        green: "--bot",
+        
         top:"--top",
         bot:"--bot",
 
@@ -228,7 +276,25 @@ d<!DOCTYPE html>
         document.getElementById("Random_Rainbow_Bot")
         .addEventListener("click", globalFunction.randomBotBtn_funct); 
 
-        
+      //"turn_speed_control"
+      let turn_speed_control=document.getElementById("turn_speed_control"  )
+
+      let get_turn_speed_control
+      turn_speed_control.oninput = function() {
+        get_turn_speed_control= this.value;
+      console.log(get_turn_speed_control); 
+
+      if(get_turn_speed_control==="2"){
+      document.documentElement.style.setProperty("--turn_speed","1000ms");}
+
+      if(get_turn_speed_control==="1"){
+      document.documentElement.style.setProperty("--turn_speed","3000ms");}
+
+      if(get_turn_speed_control==="0"){
+      document.documentElement.style.setProperty("--turn_speed","10000ms");}
+
+}
+
 
 
 
