@@ -1,2 +1,2 @@
-# catfactproj
+# proj
 cat fact unsplash
