@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bgstyle">
+        <article id="item1">Pillow Case</article>
+        <input
+          type="number"
+          min="1"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          id="item1_input"
+        />
+      </div>
+      <div class="bgstyle">
+        <article id="item2">Big Towel</article>
+        <input
+          type="number"
+          min="1"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          id="item2_input"
+        />
+      </div>
+      <div class="output_msg_style" id="output_msg">Add Item</div>
+      <button id="copyResultText">COPY</button>
+    </div>
+    <style>
+      input[type="number"] {
+        font-size: 2.5em;
+        width: 2em;
+        border-radius: 5%;
+        text-align: center;
+      }
+      article {
+        font-size: 2em;
+      }
+      button {
+        font-size: 2em;
+        border-radius: 5%;
+      }
+      .bgstyle {
+        background: rgb(186, 82, 82);
+        padding: 1em;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .output_msg_style {
+        background: rgb(199, 80, 44);
+
+        padding: 1em;
+        font-size: 2em;
+      }
+      .container {
+        background: black;
+        display: grid;
+        gap: 1em;
+        padding: 1em;
+        overflow: hidden;
+      }
+      @media (min-width: 40em) {
+        .container {
+          grid-template-columns: 1fr 1fr 2fr;
+        }
+      }
+    </style>
+
+    <script>
+      function getEle_innerHTML(id) {
+        return document.getElementById(id).innerHTML;
+      }
+      function setEle_innerHTML(id, text) {
+        return (document.getElementById(id).innerHTML = text);
+      }
+
+      // let item_1 = getEle_innerHTML("item1");
+      // let item_2 = getEle_innerHTML("item2");
+
+      let item1_input;
+      let item2_input;
+
+      document.getElementById("item1_input").addEventListener("input", ev => {
+        item1_input = ev.target.value;
+      });
+      document.getElementById("item2_input").addEventListener("input", ev => {
+        item2_input = ev.target.value;
+      });
+
+      function item_result(id) {
+        return new Promise((resolve, reject) => {
+          resolve(id);
+        });
+      }
+
+      async function getResult() {
+        const item1_result_f = await item_result(item1_input);
+        const item2_result_f = await item_result(item2_input);
+
+        //Change Item Name Here
+        const resultOBJ = {
+          Pillow_Case: item1_result_f,
+          Big_Towel: item2_result_f,
+        };
+
+        let resultARR = [];
+        for (prop in resultOBJ) {
+          if (resultOBJ[prop]) {
+            resultARR.push(`${prop}: ${resultOBJ[prop]}  `);
+          }
+        }
+        console.log("resultARR:" + resultARR);
+
+        return Promise.all(setEle_innerHTML("output_msg", resultARR));
+      }
+
+      let output_msg = getEle_innerHTML("output_msg");
+      //copy btn
+      document
+        .getElementById("copyResultText")
+        .addEventListener("click", copyResultText);
+
+      function copyResultText() {
+        let msg = document.getElementById("output_msg");
+        // msg.select();
+        // navigator.clipboard.writeText(
+        //   document.getElementById("output_msg").value
+        // );
+      }
+
+      //  getResult().then(console.log)
+
+      document
+        .getElementById("item1_input")
+        .addEventListener("input", getResult);
+      document
+        .getElementById("item2_input")
+        .addEventListener("input", getResult);
+
+      // Later, add drop down list for items options
+    </script>
+  </body>
+</html>

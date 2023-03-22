@@ -7,6 +7,8 @@ d<!DOCTYPE html>
     <title>Document</title>
   </head>
   <style>
+
+    *,*::before,*::after{box-sizing: border-box;}
     :root{--top:white;
       --bot:white;
       --lightColor: linear-gradient(to right, var(--bot), var(--top) 70%, transparent);
@@ -17,7 +19,7 @@ d<!DOCTYPE html>
       font-size: 75px;
       justify-content: center;
       align-content: center;
-      min-height: 200vh;
+      min-height: 100vh;
       background-color: #000;
       perspective: 5em;
       max-width: 150vh;
@@ -38,8 +40,13 @@ d<!DOCTYPE html>
       transform: translateX(1.5em)
     }
 
-    .menu{transform:translateX(6.25em)}
-    .turn_speed_control_Box{display: flex;background: white;font-size: 20px; max-width: fit-content; flex-flow: column;transform:translateX(5.5em)}
+  .menu{transform:translateX(6.25em)}
+  .turn_speed_control_Box{display: grid;background: white;font-size: 20px; max-width: fit-content; transform:translateX(3.5em);padding-right: 0.5em;padding-left: 0.5em;}
+  #speed{column-count: 3;}
+  #slow{padding-left: 0.5em;}
+  #fast{text-align: right; padding-right: 0.5em;}
+
+
 .Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
       align-content: center;}
 .Random_Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
@@ -181,9 +188,10 @@ d<!DOCTYPE html>
 
   <div class="turn_speed_control_Box">
     Select Turn Speed: 
-    <div>Slow</div>    <div>Normal</div>
-    <div>Fast</div>
-        <input type="range" min="0" max="2" value="0" id="turn_speed_control"> 
+    <div id="speed">
+    <div id="slow">Slow</div>    <div id="normal">Normal</div>
+          <div id="fast">Fast</div></div>
+        <input type="range" min="0" max="2" value="1" id="turn_speed_control"> 
   </div>
 
 
@@ -248,8 +256,8 @@ d<!DOCTYPE html>
           
           // console.log(rainbowArr.length);
           await delay(1000);
-          await document.documentElement.style.setProperty(top_bot,randomRainbow[noRepeat]);
-          await randomRainbow.splice(noRepeat,1);
+           document.documentElement.style.setProperty(top_bot,randomRainbow[noRepeat]);
+          randomRainbow.splice(noRepeat,1);
         }
         }catch(e){console.log("error");}
       }
@@ -280,8 +288,10 @@ d<!DOCTYPE html>
       let turn_speed_control=document.getElementById("turn_speed_control"  )
 
       let get_turn_speed_control
-      turn_speed_control.oninput = function() {
-        get_turn_speed_control= this.value;
+      turn_speed_control.addEventListener("input", getValue);
+      
+      function getValue(ev) {
+        get_turn_speed_control= ev.target.value;
       console.log(get_turn_speed_control); 
 
       if(get_turn_speed_control==="2"){

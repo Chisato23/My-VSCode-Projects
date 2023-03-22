@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Facts</title>
+    
+    
+</head>
+
+
+<body>
+
+    <h1 id="cat">Are you ready for Cat Facts?</h1>
+    <button id="get">Click Me  for Cat Facts</button>
+
+    <script>
+        
+
+        const getText = async function (){
+
+const response = await fetch('https://catfact.ninja/fact');
+const data = await response.json();
+let result = data.fact
+
+return document.getElementById("cat").innerHTML = result;
+};
+
+//getText().then(data=> console.log('resolved',data.fact));
+
+document.getElementById("get").addEventListener
+        ("click", getText);
+
+        const getMore= function (){
+        let more = document.getElementById("get").innerHTML = 'Next Cat Facts';
+        }
+
+        document.getElementById("get").addEventListener
+        ("click", getMore);
+        
+console.log('HI'); 
+
+
+
+    </script>
+    
+</body>
+</html>

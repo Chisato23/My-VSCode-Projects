@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+    background: url("https://truth.bahamut.com.tw/s01/202209/a64b522e8aec35e89a629257c35c236a.JPG"); background-size: cover;
+
+}
+
+h1{
+    text-transform: uppercase;
+    letter-spacing: 20px;
+    font-size: large;
+    text-align: center;
+}
+
+.clock
+{display: flex;
+
+}
+a:hover{background-color: aqua;
+
+}
+
+button{min-height: 40px; min-width: 80px; background-color: pink; color: black;}
+
+#test{color: purple; background-color: black;}
+

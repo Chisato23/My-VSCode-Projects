@@ -26,13 +26,13 @@
       }
 
       .result {
-        font-size: 2rem;
+        font-size: 1.5rem;
         position: relative;
         box-sizing: border-box;
         background-color: rgba(80, 214, 255, 0.803);
         opacity: 0;
-        transform: translateX(-80rem);
-        animation: fadeIn 2000ms ease forwards;
+        transform: translateX(-50rem);
+        animation: fadeIn 1000ms ease forwards;
       }
 
       @keyframes fadeIn {
@@ -87,6 +87,10 @@
         width: auto;
       }
 
+      #removebtn {
+        text-align: center;
+      }
+
       body {
         display: grid;
         max-width: 400px;
@@ -103,24 +107,37 @@
         <input type="text" id="title" placeholder="Message" />
       </div>
       <div class="formBox">
-        <button id="btn">Click to Convert</button>
-        <button id="removebtn">Click to Remove</button>
+        <button id="btn">
+          Click to Convert<svg
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <title>swap-horizontal</title>
+            <path d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
+          </svg>
+        </button>
+        <button id="removebtn">
+          Click to Remove
+          <svg
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <title>delete-forever</title>
+            <path
+              d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8.46,11.88L9.87,10.47L12,12.59L14.12,10.47L15.53,11.88L13.41,14L15.53,16.12L14.12,17.53L12,15.41L9.88,17.53L8.47,16.12L10.59,14L8.46,11.88M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z"
+            />
+          </svg>
+        </button>
       </div>
     </form>
 
     <div class="result" id="result"></div>
 
     <script>
-      //    let storeArr=[]
-
       const addText = ev => {
         ev.preventDefault();
-
-        let movie = {
-          id: Date.now(),
-          title: document.getElementById("title").value,
-          // year: document.getElementById('yr').value
-        };
 
         let x = document.getElementById("title").value;
 
@@ -196,15 +213,11 @@
       document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("btn").addEventListener("click", getText);
       });
-      const removeText = function () {
+      const removeFromLocalStorage = function () {
         localStorage.removeItem("SecretCode");
       };
 
       let element = document.getElementById("result");
-
-      // document
-      //   .getElementById("btn")
-      //   .addEventListener("click", element.classList.remove("result"));
 
       document.getElementById("btn").addEventListener("click", ev => {
         ev.preventDefault();
@@ -214,13 +227,20 @@
         }, 3);
       });
 
+      document.getElementById("btn").addEventListener("click", () => {
+        document.getElementById("result").style.display = "block";
+      });
+
       document.getElementById("removebtn").addEventListener("click", ev => {
         ev.preventDefault();
-        removeText;
       });
-      // document
-      // .getElementById("removebtn")
-      // .addEventListener("click", element.classList.remove("result"));
+
+      document
+        .getElementById("removebtn")
+        .addEventListener("click", removeFromLocalStorage);
+      document.getElementById("removebtn").addEventListener("click", () => {
+        document.getElementById("result").innerHTML = null;
+      });
     </script>
     <div>
       <svg
