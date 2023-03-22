@@ -126,11 +126,11 @@
         .addEventListener("click", copyResultText);
 
       function copyResultText() {
-        let msg = document.getElementById("output_msg");
+        console.log(document.getElementById("output_msg").innerHTML);
+        let msg = document.getElementById("output_msg").innerHTML;
         // msg.select();
-        // navigator.clipboard.writeText(
-        //   document.getElementById("output_msg").value
-        // );
+        // document.execCommand(document.getElementById("output_msg").value)
+        navigator.clipboard.writeText(msg);
       }
 
       //  getResult().then(console.log)
