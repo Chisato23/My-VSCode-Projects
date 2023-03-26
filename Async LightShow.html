@@ -40,17 +40,29 @@ d<!DOCTYPE html>
       transform: translateX(1.5em)
     }
 
-  .menu{transform:translateX(6.25em)}
-  .turn_speed_control_Box{display: grid;background: white;font-size: 20px; max-width: fit-content; transform:translateX(3.5em);padding-right: 0.5em;padding-left: 0.5em;}
+    .select_light{font-size: 20px ; color: rgb(1, 1, 65);}
+    #select_speed{font-size: 1.2em; color: rgb(1, 1, 65);}
   #speed{column-count: 3;}
   #slow{padding-left: 0.5em;}
   #fast{text-align: right; padding-right: 0.5em;}
 
 
-.Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
-      align-content: center;}
-.Random_Rainbow_Btn{display: grid; max-width: 5em; justify-content: center;
-      align-content: center;}
+  .menu{transform:translateX(6.25em)}
+  .menu{display: grid;max-width: 4.5em;
+    border: solid; background: linear-gradient(to left, #e4002b, #ff6900,
+        #f6be00,
+        #97d700,
+        #00ab84,
+        #5461c8,
+        #c724b1)}
+.Rainbow_Btn,.Random_Rainbow_Btn{ display: grid; border: solid;border-radius: 50%; grid-template-columns: 1fr 1fr;
+  grid-template-rows: 44px;}
+
+      /* .Rainbow_Top,.Rainbow_Bot{} */
+
+      /* .Random_Rainbow_Top,.Random_Rainbow_Bot{} */
+  .turn_speed_control_Box{display: grid;background: white;font-size: 20px; padding-right: 0.5em;padding-left: 0.5em;border-radius: 8%;}
+
 
 
     #leftLight {
@@ -129,7 +141,7 @@ d<!DOCTYPE html>
 }
 
 
-.credit{color: white; font-size: small; }
+.credit{color: rgb(41, 35, 35); font-size: small; }
   </style>
   <body>
     <div class="floor"></div>
@@ -172,10 +184,11 @@ d<!DOCTYPE html>
 
    
 
-    <div class="credit" id="credit">Credit: Light Beam Model CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
     
 
     <nav class="menu">
+    <span class="select_light">Select LightShow Theme: </span>
+      
       <div class="Rainbow_Btn">
       <button class="Rainbow_Top" id="Rainbow_Top">Rainbow Top</button>
       <button class="Rainbow_Bot" id="Rainbow_Bot">Rainbow Bot</button>
@@ -183,16 +196,19 @@ d<!DOCTYPE html>
     <div class="Random_Rainbow_Btn">
       <button class="Random_Rainbow_Top" id="Random_Rainbow_Top">Random Rainbow Top</button>
       <button class="Random_Rainbow_Bot" id="Random_Rainbow_Bot">Random Rainbow Bot</button>
+    
+    
     </div>
-    <input type=color>
+    <!-- <input type=color> -->
 
   <div class="turn_speed_control_Box">
-    Select Turn Speed: 
+    <span id="select_speed">Select Turn Speed: </span>
     <div id="speed">
     <div id="slow">Slow</div>    <div id="normal">Normal</div>
           <div id="fast">Fast</div></div>
         <input type="range" min="0" max="2" value="1" id="turn_speed_control"> 
   </div>
+  <div class="credit" id="credit">Credit: Light Beam Model CSS by: <br>https://codepen.io/noeldelgado/pen/dYEPrJ</div>
 
 
     </nav>
