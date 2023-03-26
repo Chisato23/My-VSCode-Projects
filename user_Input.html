@@ -8,6 +8,14 @@
     <title>Encrypt Project</title>
 
     <style>
+      .container {
+        border: solid;
+        padding-bottom: 2em;
+      }
+      .container2 {
+        border: solid;
+        border-top: none;
+      }
       .formBox {
         font-size: 2rem;
       }
@@ -100,40 +108,44 @@
   </head>
 
   <body>
-    <p>""</p>
-    <form>
-      <div class="formBox">
-        <label for="title">Encrypt & Decrypt Message</label><br />
-        <input type="text" id="title" placeholder="Message" />
-      </div>
-      <div class="formBox">
-        <button id="btn">
-          Click to Convert<svg
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <title>swap-horizontal</title>
-            <path d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
-          </svg>
-        </button>
-        <button id="removebtn">
-          Click to Remove
-          <svg
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <title>delete-forever</title>
-            <path
-              d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8.46,11.88L9.87,10.47L12,12.59L14.12,10.47L15.53,11.88L13.41,14L15.53,16.12L14.12,17.53L12,15.41L9.88,17.53L8.47,16.12L10.59,14L8.46,11.88M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z"
-            />
-          </svg>
-        </button>
-      </div>
-    </form>
+    <div class="container">
+      <p>""</p>
+      <form>
+        <div class="formBox">
+          <label for="title">Encrypt & Decrypt Message</label><br />
+          <input type="text" id="title" placeholder="Message" />
+        </div>
+        <div class="formBox">
+          <button id="btn">
+            Click to Convert<svg
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <title>swap-horizontal</title>
+              <path
+                d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z"
+              />
+            </svg>
+          </button>
+          <button id="removebtn">
+            Click to Remove
+            <svg
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <title>delete-forever</title>
+              <path
+                d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8.46,11.88L9.87,10.47L12,12.59L14.12,10.47L15.53,11.88L13.41,14L15.53,16.12L14.12,17.53L12,15.41L9.88,17.53L8.47,16.12L10.59,14L8.46,11.88M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </form>
 
-    <div class="result" id="result"></div>
+      <div class="result" id="result"></div>
+    </div>
 
     <script>
       const addText = ev => {
@@ -242,38 +254,40 @@
         document.getElementById("result").innerHTML = null;
       });
     </script>
-    <div>
-      <svg
-        style="width: 80px"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <title>lock</title>
-        <path
-          d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"
-        />
-      </svg>
-      <svg
-        style="width: 80px"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <title>lock-open-variant</title>
-        <path
-          d="M18 1C15.24 1 13 3.24 13 6V8H4C2.9 8 2 8.89 2 10V20C2 21.11 2.9 22 4 22H16C17.11 22 18 21.11 18 20V10C18 8.9 17.11 8 16 8H15V6C15 4.34 16.34 3 18 3C19.66 3 21 4.34 21 6V8H23V6C23 3.24 20.76 1 18 1M10 13C11.1 13 12 13.89 12 15C12 16.11 11.11 17 10 17C8.9 17 8 16.11 8 15C8 13.9 8.9 13 10 13Z"
-        />
-      </svg>
+    <div class="container2">
+      <div>
+        <svg
+          style="width: 80px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <title>lock</title>
+          <path
+            d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"
+          />
+        </svg>
+        <svg
+          style="width: 80px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <title>lock-open-variant</title>
+          <path
+            d="M18 1C15.24 1 13 3.24 13 6V8H4C2.9 8 2 8.89 2 10V20C2 21.11 2.9 22 4 22H16C17.11 22 18 21.11 18 20V10C18 8.9 17.11 8 16 8H15V6C15 4.34 16.34 3 18 3C19.66 3 21 4.34 21 6V8H23V6C23 3.24 20.76 1 18 1M10 13C11.1 13 12 13.89 12 15C12 16.11 11.11 17 10 17C8.9 17 8 16.11 8 15C8 13.9 8.9 13 10 13Z"
+          />
+        </svg>
+      </div>
+      <h2>
+        How does this work: <br />only
+        <span class="highlight">CAPITAL LETTERS</span> are converted!!
+      </h2>
+      <h3 class="scanEffect">
+        For example: <span class="highlightYellow">"HeLlO WoRlD"</span> will
+        return <span class="highlightRed">"UeYlB JoElQ"</span><br /><br />
+        To decrypt back to the original text, pass in:
+        <span class="highlightRed">"UeYlB JoElQ"</span>, to get back
+        <span class="highlightYellow">"HeLlO WoRlD"</span>
+      </h3>
     </div>
-    <h2>
-      How does this work: <br />only
-      <span class="highlight">CAPITAL LETTERS</span> are converted!!
-    </h2>
-    <h3 class="scanEffect">
-      For example: <span class="highlightYellow">"HeLlO WoRlD"</span> will
-      return <span class="highlightRed">"UeYlB JoElQ"</span><br /><br />
-      To decrypt back to the original text, pass in:
-      <span class="highlightRed">"UeYlB JoElQ"</span>, to get back
-      <span class="highlightYellow">"HeLlO WoRlD"</span>
-    </h3>
   </body>
 </html>
